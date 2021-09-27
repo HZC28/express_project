@@ -7,7 +7,8 @@ $sql.connect()                          //运用了这句才是真正连接
 let login =require('./api/login')
 let changeUserInfo=require("./api/changeUserInfo")
 let registered=require("./api/register")
-
+let getOpenid=require("./api/getOpenid")
+let cancellation=require('./api/cancellation')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,14 +32,23 @@ router.get('/user/registered', function(req, res, next) {
   registered(req, res, next)
 });
 
+// 注销方法
+router.get('/user/cancellation', function(req, res, next) {
+  cancellation(req, res, next)
+});
 
 router.post('/user/test', function(req, res, next) {
   // res.render('index', { title: 'Express' });
   console.log(req.body)
-  res.send(req.body)
+  res.send(req.query)
+});
+
+// https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+router.get('/user/getOpenid', function(req, res, next) {
+  getOpenid(req, res, next)
 });
 
 
 
-
 module.exports = router;
+

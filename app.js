@@ -4,15 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var userRouter = require('./routes/user/index')
-var bookRouter = require('./routes/book/index');
 
 var app = express();
 const bodyParser = require('body-parser');
-//extended:false 不适用第三方模块处理参数，使用系统内置模块querystring处理
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 // view engine setup
 
+var userRouter = require('./routes/user/index')
+var bookRouter = require('./routes/book/index');
+var fileRouter=require('./routes/file/index')
 // 解决跨域请求问题
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(userRouter);
 app.use(bookRouter);
+app.use(fileRouter);
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -55,8 +56,12 @@ var debug = require('debug')('my-application'); // debug模块
 app.set('port', process.env.PORT || 3000); // 设定监听端口
 
 //启动监听
-var server = app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'),'0.0.0.0', function() {
   debug('Express server listening on port ' + server.address().port);
 });
 // nodemon app.js
 // module.exports = app;
+
+
+
+// nodemon app.js 启动
