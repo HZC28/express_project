@@ -9,7 +9,7 @@ var app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 // view engine setup
-
+require('./swagger/index')(app)
 var userRouter = require('./routes/user/index')
 var bookRouter = require('./routes/book/index');
 var fileRouter=require('./routes/file/index')
@@ -55,6 +55,8 @@ app.use(function(err, req, res, next) {
 var debug = require('debug')('my-application'); // debug模块
 app.set('port', process.env.PORT || 3000); // 设定监听端口
 
+
+
 //启动监听
 var server = app.listen(app.get('port'),'0.0.0.0', function() {
   debug('Express server listening on port ' + server.address().port);
@@ -64,4 +66,4 @@ var server = app.listen(app.get('port'),'0.0.0.0', function() {
 
 
 
-// nodemon app.js 启动
+// nodemon app.js 
