@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 // 登录方法
-router.get('/user/login', function(req, res, next) {
+router.post('/user/login', function(req, res, next) {
     login(req, res, next)
 });
 

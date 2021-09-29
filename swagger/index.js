@@ -7,10 +7,12 @@ const options = {
   definition: {
     // 采用的 openapi 版本 不用改
     openapi: '3.0.0',
+    schemes:['http','https'],
     // 页面基本信息 自由发挥
     info: {
       title: 'express项目',
       version: '1.0.0',
+      description:"This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
     }, 
   },
   // 去哪个路由下收集 swagger 注释
@@ -18,7 +20,9 @@ const options = {
 }
 var swaggerJson = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
+  console.log(swaggerSpec)
   res.send(swaggerSpec);
+  
 }
 const swaggerSpec = swaggerJSDoc(options)
 

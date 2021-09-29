@@ -1,6 +1,7 @@
 var $mysql   = require("mysql");
 var sql = require("../../../public/sql/mysql.js");       //   这句话是，引入当前目录的mysql模板   mysql就是我们上面创建的mysql.js
 var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        mysql是我们上面文件暴露出来的模板的方法
+let jwt = require("jsonwebtoken")
 $sql.connect() 
 /**,
  * @swagger
@@ -51,9 +52,18 @@ function login(req, res, next) {
             let data;
             if (result.length) {
                 if(result[0].password==password){
+                    let token = jwt.sign({
+                        username:name
+                    },"abc",{
+                        expiresIn: 600
+                    })
                     data = {
                         code: 200,
-                        msg: "登录成功"
+                        msg: "登录成功",
+                        data:{
+                            username:name,
+                            token:token
+                        }
                     }
                 }else{
                     data = {

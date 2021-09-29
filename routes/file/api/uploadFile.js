@@ -4,6 +4,26 @@ const fs = require('fs')
 var sql = require("../../../public/sql/mysql.js");       //   这句话是，引入当前目录的mysql模板   mysql就是我们上面创建的mysql.js
 var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        mysql是我们上面文件暴露出来的模板的方法
 $sql.connect() 
+
+/**,
+ * @swagger
+ * /file/uploadFile:
+ *    post:
+ *      tags:
+ *      - file    #接口分类
+ *      summary: "上传文件"   #接口备注
+ *      description: "上传文件"   #接口描述
+ *      consumes:
+ *      - "multipart/form-data"
+ *      produces:
+ *      - "application/json"
+ *      parameters:
+ *      - name: "file"
+ *        in: "formData"
+ *        description: ""
+ *        required: true
+ *        type: "file"
+ * */
 function uploadFile(req, res, next) {
    /* 生成multiparty对象，并配置上传目标路径 */
   let form = new multiparty.Form();

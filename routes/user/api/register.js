@@ -6,6 +6,43 @@ $sql.connect()
 // 删除：delete from 表名 where 条件
 // 修改：update 表名 set 字段=值 where 条件
 // 查询：select 字段,字段/* from 表名 (where 条件)
+/**,
+ * @swagger
+ * /user/register:
+ *    get:
+ *      tags:
+ *      - 用户    #接口分类
+ *      summary: 用户注册接口   #接口备注
+ *      description: 用户注册接口   #接口描述
+ *      produces:
+ *      - "application/xml"
+ *      - "application/json"
+ *      parameters:
+ *      - name: "name"
+ *        in: "query"
+ *        description: "用户账号"
+ *        required: true
+ *        type: "string"
+ *      - name: "password"
+ *        in: "query"
+ *        description: "用户密码"
+ *        required: true
+ *        type: "string"
+ *      responses:  #编写返回体
+ *        200:     #返回code码
+ *          description: 注册成功    #返回code码描述
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          code:   #返回的code码
+ *                              type: number
+ *                              description: 200
+ *                          msg:    #返回体信息。***注意写的位置一定要和res_code对齐。
+ *                               type: string   #返回体信息类型
+ *                               description: 登录成功
+ * */
 function registered(req, res, next) {
     let { name,password } = req.query;
     let thesql = "insert into user_table(name,password) values(?,?)" 
