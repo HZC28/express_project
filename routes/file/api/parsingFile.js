@@ -24,6 +24,8 @@ var xlsx = require('node-xlsx');
  *        required: true
  *        type: "file"
  * */
+
+// 解析excel文件数据，将数据插入data_table表格里
 function uploadFile(req, res, next) {
    /* 生成multiparty对象，并配置上传目标路径 */
   let form = new multiparty.Form();

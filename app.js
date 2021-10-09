@@ -13,6 +13,7 @@ require('./swagger/index')(app)
 var userRouter = require('./routes/user/index')
 var bookRouter = require('./routes/book/index');
 var fileRouter=require('./routes/file/index')
+var testRouter=require('./routes/test/index')
 // 解决跨域请求问题
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,13 +33,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
-  console.log(req.method)
   // 我这里知识把登陆和注册请求去掉了，其他的多有请求都需要进行token校验 
   var reg = /([?][^/]+)$/;
   var url =req.url.replace(reg, "");
   if (url != '/user/login' && url != '/user/register') {
       let token = req.headers.token;
-      console.log(token)
       jwt.verify(token,"abc",(err,decode)=>{
         //第一个参数传递token
         //第二个参数解密规则
@@ -54,7 +53,6 @@ app.use(function (req, res, next) {
             result: ''
           })
           res.end()
-          // next(createError(401))
         }else{
             next()
         }                    
@@ -67,6 +65,7 @@ app.use(function (req, res, next) {
 app.use(userRouter);
 app.use(bookRouter);
 app.use(fileRouter);
+app.use(testRouter);
 
 
 // app.use('/users', usersRouter);
@@ -81,7 +80,6 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

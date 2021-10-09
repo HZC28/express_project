@@ -6,7 +6,7 @@ $sql.connect()
 /**,
  * @swagger
  * /user/login:
- *    get:
+ *    post:
  *      tags:
  *      - 用户    #接口分类
  *      summary: 登录   #接口备注
@@ -25,6 +25,9 @@ $sql.connect()
  *        description: "用户密码"
  *        required: true
  *        type: "string"
+ *      example:        #请求参数样例。
+ *        username: "string"
+ *        password: "string"
  *      responses:  #编写返回体
  *        200:     #返回code码
  *          description: 登录成功    #返回code码描述
@@ -48,28 +51,22 @@ function login(req, res, next) {
         if (err) {
             console.log('查询数据库失败');
         } else {
-            console.log(result[0]);
+            // console.log(result[0]);
             let data;
             if (result.length) {
                 if(result[0].password==password){
                     let token = jwt.sign({
                         username:name
                     },"abc",{
-                        expiresIn: 600
+                        expiresIn: 60*60*24
                     })
-                    data = {
-                        code: 200,
-                        msg: "登录成功",
-                        data:{
-                            username:name,
-                            token:token
-                        }
-                    }
+                    getMenu(result[0].role,token,name,res)
                 }else{
                     data = {
                         code: 100,
                         list: "账号名或者密码有误"
                     }
+                    res.send(data)
                 }
                 
             } else {
@@ -77,9 +74,55 @@ function login(req, res, next) {
                     code: 100,
                     msg: '对不起，您输入的账号未注册'
                 }
+                res.send(data)
             }
-            res.send(data)
+            
         }
+    })
+}
+// 获取角色权限
+function getMenu(role,token,name,respone){
+    let roleName='' 
+    // let thesql = "updata " 
+    $sql.query("select * from authority_table where role_id = ?",[role],function (err, result) {
+        // roleName=result[0].role
+        let menuids=result[0].authority.split(',')
+        // console.log(menuids)
+        let thesql = "select * from menu_table"
+        let arr=[]
+        let newArr=[]
+        $sql.query(thesql,function(err,res){
+            arr=res
+            for(let i=0;i<menuids.length;i++){
+                for(let k=0;k<arr.length;k++){
+                    if(arr[k].menuid==menuids[i]){newArr.push(arr[k]);break}
+                }
+            }
+            // console.log(newArr)
+            let parentMenu=newArr.filter(val=>{return val.type==1})
+            let childMenu=newArr.filter(val=>{return val.type==2})
+            parentMenu.forEach(val=>{
+                val.children=[]
+                val.children=childMenu.filter(value=>{
+                    // console.log(value)
+                    // console.log(value.parent_menuid==val.menuid)
+                    return value.parent_menuid==val.menuid
+                })
+            })
+            // console.log(parentMenu)
+            let data = {
+                code: 200,
+                msg: "登录成功",
+                data:{
+                    username:name,
+                    token:token,
+                    menus:parentMenu
+                }
+            }
+            respone.send(data)
+        })
+        
+
     })
 }
 module.exports=login

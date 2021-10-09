@@ -17,11 +17,14 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "multiparty": "^4.2.2",
+    "mysql2": "^2.3.0",
     "node-xlrd": "^0.3.10",
     "node-xlsx": "^0.17.2",
     "request": "^2.88.2",
+    "sequelize": "^6.6.5",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "tedious": "^13.1.0"
   },
   "devDependencies": {
     "mysql": "^2.18.1"
