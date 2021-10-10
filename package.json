@@ -20,6 +20,7 @@
     "mysql2": "^2.3.0",
     "node-xlrd": "^0.3.10",
     "node-xlsx": "^0.17.2",
+    "qr-image": "^3.2.0",
     "request": "^2.88.2",
     "sequelize": "^6.6.5",
     "swagger-jsdoc": "^6.1.0",

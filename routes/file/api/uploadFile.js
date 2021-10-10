@@ -24,6 +24,7 @@ $sql.connect()
  *        required: true
  *        type: "file"
  * */
+// 文件上传方法
 function uploadFile(req, res, next) {
    /* 生成multiparty对象，并配置上传目标路径 */
   let form = new multiparty.Form();
@@ -35,13 +36,6 @@ function uploadFile(req, res, next) {
   form.maxFilesSize = 10 * 1024 * 1024;
   let id=new Date().getTime()+Math.floor(Math.random() * 10000)+''
   form.parse(req, function (err, fields, files) {
-    // {
-    //     fieldName: 'file',
-    //     originalFilename: 'QQ浏览器截图20210424185032.png',
-    //     path: 'E:\\hjc\\image\\DhV0vpuRTNbEXsuPu_5zvv2m.png',
-    //     headers: [Object],
-    //     size: 1444955
-    //   }
     try {
       let inputFile = files.file[0];
       let fileName=inputFile.originalFilename

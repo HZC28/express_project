@@ -36,7 +36,8 @@ app.use(function (req, res, next) {
   // 我这里知识把登陆和注册请求去掉了，其他的多有请求都需要进行token校验 
   var reg = /([?][^/]+)$/;
   var url =req.url.replace(reg, "");
-  if (url != '/user/login' && url != '/user/register') {
+  console.log(url)
+  if (url != '/user/login' && url != '/user/register'&&url!="/test/create_qrcode") {
       let token = req.headers.token;
       jwt.verify(token,"abc",(err,decode)=>{
         //第一个参数传递token

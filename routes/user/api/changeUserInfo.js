@@ -1,6 +1,8 @@
 var $mysql   = require("mysql");
 var sql = require("../../../public/sql/mysql.js");       //   这句话是，引入当前目录的mysql模板   mysql就是我们上面创建的mysql.js
 var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        mysql是我们上面文件暴露出来的模板的方法
+const sequelize=require("../../../public/sequelize/index")
+const WebSite=require("../../../public/Model/user.js")
 $sql.connect() 
 // 新增：insert into 表名(字段,字段) values(值,值)
 // 删除：delete from 表名 where 条件
@@ -52,38 +54,54 @@ $sql.connect()
  *        -1:
  *          description: 注册失败
  * */
-function changeUserInfo(req, res, next) {
-    // let params=req.body
-    // let arr=Object.keys(params)
-    // // console.log(Object.keys(params))
-    // // console.log(params[arr[0]])
-    // res.send(req.body)
-    // let str=''
-    // arr.forEach((val,index)=>{
-    //     str+=val+"= ? "
-    // })
-    // console.log(str)
-    let { name,password } = req.query;
-    let thesql = "update user_table set password=? where name = ?" 
-    $sql.query(thesql,[password,name],function (err, result) {
-        if (err) {
-            console.log('查询数据库失败');
-        } else {
-            console.log(result);
-            let data;
-            if (result.affectedRows!=0) {
-                data = {
-                    code: 200,
-                    msg: "修改成功"
-                }
-            } else {
-                data = {
-                    code: 100,
-                    msg: "操作失败"
-                }
-            }
-            res.send(data)
-        }
+
+// 修改账号信息
+async function changeUserInfo(req, res, next) {
+    let obj=req.body
+    let arr=['age','img','password','role','company','phone','email']
+    let query={}
+    // console.log(Object.keys(req.query))
+    arr.forEach(val=>{
+        if(obj[val]!=undefined&&obj[val]!=''){
+            query[val]=obj[val]
+        }  
     })
+    await sequelize.sync(); 
+    let data={
+        code:200,
+        msg:"修改成功"
+    }
+    if(obj.name==undefined||obj.name==''){
+        data={
+            code:100,
+            msg:"参数不足"
+        }
+        res.send(data)
+        return
+    }
+    let result = await WebSite.findAll({where:{ name:obj.name}})
+    if(result.length==0){
+        data={
+            code:100,
+            msg:"用户不存在"
+        }
+        res.send(data)
+        return
+    }
+    try{
+        let x = await WebSite.update(query,{ 
+            where:{
+                name:obj.name
+            }
+        })
+    }catch(err){
+        data={
+            code:100,
+            msg:"修改失败"
+        }
+        res.send(data)
+        return
+    }
+    res.send(data)
 }
 module.exports=changeUserInfo

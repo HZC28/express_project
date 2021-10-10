@@ -43,6 +43,7 @@ $sql.connect()
  *                               type: string   #返回体信息类型
  *                               description: 登录成功
  * */
+// 登录账号方法
 function login(req, res, next) {
     let { name,password } = req.query;
     let thesql = "select * from user_table where name = ?" 
@@ -55,10 +56,12 @@ function login(req, res, next) {
             let data;
             if (result.length) {
                 if(result[0].password==password){
+                    // 根据用户名生成token
                     let token = jwt.sign({
-                        username:name
+                        username:name,
+                        role:result[0].role
                     },"abc",{
-                        expiresIn: 60*60*24
+                        expiresIn: 60*60*24*7//token有限时间(秒)
                     })
                     getMenu(result[0].role,token,name,res)
                 }else{

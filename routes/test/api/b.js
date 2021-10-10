@@ -12,8 +12,8 @@ async function a(req, res, next) {
     let query={}
     query.role=3
     arr.forEach(val=>{
-        if(req.query[val]!=undefined&&req.query[val]!=''){
-            query[val]=req.query[val]
+        if(req.body[val]!=undefined&&req.body[val]!=''){
+            query[val]=req.body[val]
         }  
     })
     let data={
@@ -21,17 +21,31 @@ async function a(req, res, next) {
         msg:"注册成功"
     }
     query.changeTime=time
-    console.log(query)
+    if(query.name==undefined||query.name==''){
+        data={
+            code:100,
+            msg:"用户名不能为空"
+        }
+        res.send(data)
+        return
+    }
+    if(query.password==undefined||query.password.length<6){
+        data={
+            code:100,
+            msg:"密码不能为空或者小于六位数"
+        }
+        res.send(data)
+        return
+    }
     await sequelize.sync();
     try {
         let x = await WebSite.create(query)
-        //运行代码
-      } catch(err) {
+    } catch(err) {
         data={
             code:100,
             msg:"用户名已存在"
         }
-      }
-      res.send(data)
+    }
+    res.send(data)
 }
 module.exports=a

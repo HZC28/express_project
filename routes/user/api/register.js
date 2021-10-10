@@ -43,6 +43,7 @@ $sql.connect()
  *                               type: string   #返回体信息类型
  *                               description: 登录成功
  * */
+// 注册账号
 function registered(req, res, next) {
     let { name,password } = req.query;
     let thesql = "insert into user_table(name,password) values(?,?)" 

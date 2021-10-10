@@ -6,19 +6,19 @@ const sequelize=require("../../../public/sequelize/index")
 const WebSite=require("../../../public/Model/user.js")
 
 $sql.connect() 
+// 分页获取用户
 async function list(req, res, next) {
     // parseInt(req.query.current)
     let arr=['name','age','img','password','role','company','phone','email']
     let query={}
-    let current=parseInt(req.query.current)>=1?parseInt(req.query.current):1
-    let page=parseInt(req.query.page)>=1?parseInt(req.query.page):2
+    let current=parseInt(req.query.currentPage)>=1?parseInt(req.query.currentPage):1
+    let page=parseInt(req.query.pageSize)>=1?parseInt(req.query.pageSize):2
     // console.log(Object.keys(req.query))
     arr.forEach(val=>{
         if(req.query[val]!=undefined&&req.query[val]!=''){
             query[val]=req.query[val]
         }  
     })
-    console.log(query)
     await sequelize.sync();
     let x = await WebSite.findAll({ 
         limit: page,
@@ -33,9 +33,5 @@ async function list(req, res, next) {
     data.list=x;
     data.total=count
     res.send(data)
-    console.log(page*(current-1))
-    // $sql.query(thesql,[name],async function (err, result) {
-    //     res.send("list")
-    // })
 }
 module.exports=list

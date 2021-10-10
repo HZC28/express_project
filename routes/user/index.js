@@ -1,4 +1,6 @@
 var express = require('express');
+const bodyParser = require('body-parser');
+let jsonParser = bodyParser.json({extended:false}) // 解析json类型
 var router = express.Router();
 var $mysql   = require("mysql");
 var sql = require("../../public/sql/mysql.js");       //   这句话是，引入当前目录的mysql模板   mysql就是我们上面创建的mysql.js
@@ -24,7 +26,8 @@ router.post('/user/login', function(req, res, next) {
 });
 
 // 修改个人信息
-router.get('/user/changeUserInfo', function(req, res, next) {
+router.post('/user/changeUserInfo',jsonParser, function(req, res, next) {
+  console.log(req.body)
   changeUserInfo(req, res, next)
 });
 
@@ -34,7 +37,7 @@ router.get('/user/registered', function(req, res, next) {
 });
 
 // 注销方法
-router.get('/user/cancellation', function(req, res, next) {
+router.post('/user/cancellation', function(req, res, next) {
   cancellation(req, res, next)
 });
 
