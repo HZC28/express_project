@@ -49,13 +49,11 @@ function uploadFile(req, res, next) {
       let fileName=inputFile.originalFilename
       let type=/\.[^\.]+$/.exec(fileName)
       let newPath = form.uploadDir + "/" + id+type
-      console.log(type)
       // 同步重命名文件名 fs.renameSync(oldPath, newPath)
 　　　 //oldPath  不得作更改，使用默认上传路径就好
       fs.renameSync(inputFile.path, newPath);
       insertFile(id,files.file[0].originalFilename,newPath,res)
     } catch (err) {
-      console.log(err);
       res.send({
         code: 100,
         msg: "上传失败"

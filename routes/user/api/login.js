@@ -124,8 +124,6 @@ function getMenu(role,token,name,respone){
             }
             respone.send(data)
         })
-        
-
     })
 }
 module.exports=login

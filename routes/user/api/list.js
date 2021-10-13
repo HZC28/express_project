@@ -4,12 +4,13 @@ var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        
 let jwt = require("jsonwebtoken")
 const sequelize=require("../../../public/sequelize/index")
 const WebSite=require("../../../public/Model/user.js")
-
+const { Op } = require("sequelize");
 $sql.connect() 
 // 分页获取用户
 async function list(req, res, next) {
     // parseInt(req.query.current)
-    let arr=['name','age','img','password','role','company','phone','email']
+    let arr=['age','img','password','role']
+    // 'company'
     let query={}
     let current=parseInt(req.query.currentPage)>=1?parseInt(req.query.currentPage):1
     let page=parseInt(req.query.pageSize)>=1?parseInt(req.query.pageSize):2
@@ -19,12 +20,32 @@ async function list(req, res, next) {
             query[val]=req.query[val]
         }  
     })
+    // 模糊查询
+    if(req.query['company']!=undefined&&req.query['company']!=''){
+        query['company']={
+            [Op.like]: `%${req.query['company']}%`
+        }
+    }
+    if(req.query['name']!=undefined&&req.query['name']!=''){
+        query['name']={
+            [Op.like]: `%${req.query['name']}%`
+        }
+    }
+    if(req.query['phone']!=undefined&&req.query['phone']!=''){
+        query['phone']={
+            [Op.like]: `%${req.query['phone']}%`
+        }
+    }
+    if(req.query['email']!=undefined&&req.query['email']!=''){
+        query['email']={
+            [Op.like]: `%${req.query['email']}%`
+        }
+    }
     await sequelize.sync();
     let x = await WebSite.findAll({ 
         limit: page,
         offset: page*(current-1),
-        where:query,
-        // attributes: ['file_id', 'file_address', 'file_name','user']
+        where:query
     })
     let count = await WebSite.count({
         where:query
