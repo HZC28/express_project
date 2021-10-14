@@ -47,6 +47,7 @@ async function list(req, res, next) {
         offset: page*(current-1),
         where:query
     })
+    // 获取总数量
     let count = await WebSite.count({
         where:query
     })

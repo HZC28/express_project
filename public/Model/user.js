@@ -34,6 +34,7 @@ WebSite.init({
     img: Sequelize.STRING(255),
     password: Sequelize.STRING(255),
     role: Sequelize.INTEGER,
+    login_time: Sequelize.INTEGER,
     company: Sequelize.STRING(255),
     phone: Sequelize.STRING(255),
     email: Sequelize.STRING(255),

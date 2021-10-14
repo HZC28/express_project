@@ -3,6 +3,8 @@ var sql = require("../../../public/sql/mysql.js");       //   这句话是，引
 var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        mysql是我们上面文件暴露出来的模板的方法
 let jwt = require("jsonwebtoken")
 $sql.connect() 
+const sequelize=require('sequelize');
+const WebSite=require("../../../public/Model/user.js")
 /**,
  * @swagger
  * /user/login:
@@ -83,7 +85,7 @@ function login(req, res, next) {
         }
     })
 }
-// 获取角色权限
+// 根据角色id获取角色权限菜单
 function getMenu(role,token,name,respone){
     let roleName='' 
     // let thesql = "updata " 
@@ -94,7 +96,7 @@ function getMenu(role,token,name,respone){
         let thesql = "select * from menu_table"
         let arr=[]
         let newArr=[]
-        $sql.query(thesql,function(err,res){
+        $sql.query(thesql,async function(err,res){
             arr=res
             for(let i=0;i<menuids.length;i++){
                 for(let k=0;k<arr.length;k++){
@@ -112,10 +114,17 @@ function getMenu(role,token,name,respone){
                     return value.parent_menuid==val.menuid
                 })
             })
+            // 用户登录次数加一
+            await WebSite.update({ login_time: sequelize.literal('login_time+1') }, {
+                where: {
+                    name:name
+                }
+            });
             // console.log(parentMenu)
             let data = {
                 code: 200,
                 msg: "登录成功",
+                // loginTime:loginTime,
                 data:{
                     username:name,
                     token:token,

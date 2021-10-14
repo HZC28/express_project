@@ -204,6 +204,5 @@ function sqlfun(thesql, id, fileName, newPath, user) {
             }
         })
     });
-
 }
 module.exports = uploadFile

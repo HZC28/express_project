@@ -31,16 +31,13 @@ router.get('/test/create_qrcode', function(req, res, next) {
 router.get('/test/c', function(req, res, next) {
     let token = req.headers.token;
     jwt.verify(token, "abc", function (err, decoded) {
-        if (!err){
-              console.log(decoded);  //会输出123，如果过了60秒，则有错误。
-              if(decoded.role==3){
-                  res.send({
-                      code:100,
-                      msg:"没有权限"
-                  })
-                  return
-              }
-         }
+        if(decoded.role==1){
+            res.send({
+                code:100,
+                msg:"没有权限"
+            })
+            return
+        }
          res.send({
             code:200,
             decoded:decoded,
