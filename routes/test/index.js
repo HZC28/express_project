@@ -6,8 +6,12 @@ var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        
 $sql.connect()                          //运用了这句才是真正连接
 let a=require('./api/a.js')
 let b=require("./api/b")
+let getData=require("./api/getData")
 let qrcode=require("./api/qrcode")
 let jwt = require("jsonwebtoken")
+let query=require("./api/query.js")
+let c=require("./api/c.js")
+let changeData=require("./api/changeData.js")
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -25,6 +29,15 @@ router.post('/test/b', function(req, res, next) {
 
 router.get('/test/create_qrcode', function(req, res, next) {
     qrcode(req, res, next)
+});
+router.get('/test/query', function(req, res, next) {
+    query(req, res, next)
+});
+router.get('/test/c', function(req, res, next) {
+    c(req, res, next)
+});
+router.post('/test/changeData', function(req, res, next) {
+    changeData(req, res, next)
 });
 
 
@@ -45,4 +58,7 @@ router.get('/test/c', function(req, res, next) {
         })
     })
 });
+router.get("/test/getData",function(req,res,next){
+    getData(req,res,next)
+})
 module.exports = router;

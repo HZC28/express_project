@@ -1,4 +1,6 @@
 var createError = require('http-errors');
+// 加载定时器
+require("./public/trigger/trigger.js")
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -18,7 +20,9 @@ var bookRouter = require('./routes/book/index');
 var fileRouter = require('./routes/file/index')
 var testRouter = require('./routes/test/index')
 var shopRouter = require('./routes/shop/index')
-
+var wxapiRouter = require('./routes/wxapi/index')
+let linkRouter=require("./routes/link/index")
+let md5Router=require("./routes/md5/index")
 // 解决跨域请求问题
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -103,8 +107,9 @@ app.use(bookRouter);
 app.use(fileRouter);
 app.use(testRouter);
 app.use(shopRouter);
-
-
+app.use(wxapiRouter);
+app.use(linkRouter);
+app.use(md5Router);
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
