@@ -28,7 +28,7 @@ function randomWord(){
 }
 
 async function insertlink(res,req){
-    // await sequelize.sync();
+    await sequelize.sync();
     time++
     let x;
     // let arr=[
@@ -46,7 +46,8 @@ async function insertlink(res,req){
     try{
         x = await WebSite.create({ 
             longlink: url,
-            shortlink:short
+            shortlink:short,
+            title:req.body.title
         })
     }catch(err){
         insertlink(res,req);

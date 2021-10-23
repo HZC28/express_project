@@ -9,6 +9,7 @@ $sql.connect()                          //运用了这句才是真正连接
 
 let longToShort=require("./api/longToShort.js")
 let getLongLink=require("./api/getLongLink.js")
+let link=require("./api/link.js")
 /* GET home page. */
 router.get('/link/cackback/:short', function(req, res, next) {
     // res.send(req.params.short)
@@ -18,6 +19,10 @@ router.post("/link/request",function(req, res, next){
     // console.log(req.body.url)
     longToShort(req, res, next)
 })
+router.get('/link/list', function(req, res, next) {
+    // res.send(req.params.short)
+    link(req, res, next)
+});
 
 
 

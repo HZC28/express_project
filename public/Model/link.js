@@ -15,6 +15,7 @@ WebSite.init({
         primaryKey: true,
         autoIncrement: true
     },
+    title: Sequelize.STRING(255),
     longlink: Sequelize.STRING(1024),
     shortlink: {
         type:Sequelize.STRING(255),

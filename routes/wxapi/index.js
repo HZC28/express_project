@@ -8,6 +8,8 @@ var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        
 $sql.connect()                          //运用了这句才是真正连接
 let getToken=require("./api/getToken")
 let getUser=require("./api/getUser")
+let msgcheck=require("./api/msgcheck.js")
+let redirect=require("./api/redirect.js")
 
 /* GET home page. */
 router.get('/wxapi/getToken', function(req, res, next) {
@@ -16,8 +18,12 @@ router.get('/wxapi/getToken', function(req, res, next) {
 router.get('/wxapi/getUser', function(req, res, next) {
   getUser(req, res, next)
 });
-
-
-
+router.post('/wxapi/msgcheck', function(req, res, next) {
+  msgcheck(req, res, next)
+});
+router.get('/wxapi/redirect', function(req, res, next) {
+  redirect(req, res, next)
+});
+// http://192.168.1.99:3000/wxapi/redirect
 module.exports = router;
 

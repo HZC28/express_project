@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let jwt = require("jsonwebtoken")
 let fs = require('fs')
+let co = require('co')
 var app = express();
 // 对post方法body参数的解析插件
 const bodyParser = require('body-parser');
@@ -49,19 +50,21 @@ logger.token('localDate', function getDate(req) {
   let date = new Date();
   return date.toLocaleString()
 })
-logger.token('token', function getDate(req) {
-  jwt.verify(req.headers.token, "abc", (err, decode) => {
-    if (err) {
-      return null
-    } 
-    return decode.username
-  })
+logger.token('parameter', function getDate(req) {
+  return JSON.stringify(req.body)
 })
-logger.format('combined', `:remote-addr [:token]  - :remote-user [:localDate]] ":method :url HTTP/:http-version" :status ":response-time" :res[content-length] ":referrer" ":user-agent"`);
-logger.format()
+let a;
+// app.use(async function (req, res, next){
+//   a= await getUser(req)
+// })
+logger.token('username',(req)=> {
+  console.log(2)
+  a=getUser(req.headers.token)
+  // console.log(a)
+  return req.headers.token
+})
+logger.format('combined', `:remote-addr [:username] -  [:localDate]  ":method [:parameter] :url HTTP/:http-version" :status ":response-time" :res[content-length] ":referrer" ":user-agent"`);
 // 使用自定义的format
-app.use(logger('combined'));
-// app.use(logger('dev'));
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
   flags: 'a'
 });
@@ -84,17 +87,18 @@ app.use(function (req, res, next) {
     let token = req.headers.token;
     // 验证token是否过期，或者没有携带token的返回401
     jwt.verify(token, "abc", (err, decode) => {
-      if (err) {
-        res.status(401)
-        res.json({
-          code: '401',
-          msg: '当前未登录！',
-          result: ''
-        })
-        res.end()
-      } else {
-        next()
-      }
+      next()
+      // if (err) {
+      //   res.status(401)
+      //   res.json({
+      //     code: '401',
+      //     msg: '当前未登录！',
+      //     result: ''
+      //   })
+      //   res.end()
+      // } else {
+      //   next()
+      // }
     })
   } else {
     next();
@@ -136,6 +140,20 @@ app.set('port', process.env.PORT || 3000); // 设定监听端口
 var server = app.listen(app.get('port'), '0.0.0.0', function () {
   debug('Express server listening on port ' + server.address().port);
 });
+
+function getUser(token){
+  return new Promise(function(resolve,reject){
+    jwt.verify(token, "abc",(err, decode) => {
+      if (err) {
+        resolve(null)
+      }else{
+        resolve(decode.username)
+      }
+      
+    })
+  })
+}
+
 // nodemon app.js
 // module.exports = app;
 

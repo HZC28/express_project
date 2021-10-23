@@ -3,6 +3,7 @@ var sql = require("../../../public/sql/mysql.js");       //   这句话是，引
 var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        mysql是我们上面文件暴露出来的模板的方法
 $sql.connect() 
 var request = require('request');
+// 小商店
 let code="001fVK0w3olv7X2XTZ2w3lkcLm0fVK0N"
 let APPID='wx3fdda51ff31c80b8'
 let secret='140d7dca74627817725872e9b6eb366f'
