@@ -4,6 +4,10 @@ var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        
 $sql.connect() 
 var request = require('request');
 // 公众号测试账号appid，sercket
+
+
+// 获取token
+
 let code="001fVK0w3olv7X2XTZ2w3lkcLm0fVK0N"
 let APPID='wxb55302fba51c9a26'
 let secret='51c44e249ff524a9a45e6d4cc8ae1510'

@@ -24,6 +24,7 @@ var shopRouter = require('./routes/shop/index')
 var wxapiRouter = require('./routes/wxapi/index')
 let linkRouter=require("./routes/link/index")
 let md5Router=require("./routes/md5/index")
+let zfbRouter=require("./routes/zfb/index")
 // 解决跨域请求问题
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -114,6 +115,8 @@ app.use(shopRouter);
 app.use(wxapiRouter);
 app.use(linkRouter);
 app.use(md5Router);
+app.use(zfbRouter);
+
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

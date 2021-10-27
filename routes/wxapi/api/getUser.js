@@ -6,6 +6,9 @@ var request = require('request');
 let code="001fVK0w3olv7X2XTZ2w3lkcLm0fVK0N"
 let APPID='wx3fdda51ff31c80b8'
 let secret='140d7dca74627817725872e9b6eb366f'
+
+// 批量获取关注用户
+
 // 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function getUser(req, res, next) {
     let token="50_aqtkWhiRnu5nv-1ZbaSrnJsD8RtNC9K4DEZmLPYQfUI5dCj2C8SFNHpYuVRJRGqpTMhkLtad6MimqNFrxQUOYzOe5lD5tWcuwEtiA4ffe0lbynbHO0s5glC997_QIRxMaH5-RcQbkhmVtvw8VGIfAHAFQS"

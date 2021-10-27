@@ -6,6 +6,9 @@ var request = require('request');
 let code="001fVK0w3olv7X2XTZ2w3lkcLm0fVK0N"
 let APPID='wx3fdda51ff31c80b8'
 let secret='140d7dca74627817725872e9b6eb366f'
+
+// 短链接重定向到授权url
+
 // 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function redirect(req, res, next) {
     const redirectURL = "https://www.nandao.tech/book";

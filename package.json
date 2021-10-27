@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "alipay-sdk": "^3.1.7",
     "body-parser": "^1.18.3",
     "co": "^4.6.0",
     "connect-multiparty": "^2.2.0",
@@ -24,11 +25,13 @@
     "node-xlrd": "^0.3.10",
     "node-xlsx": "^0.17.2",
     "qr-image": "^3.2.0",
+    "raw-body": "^2.4.1",
     "request": "^2.88.2",
     "sequelize": "^6.6.5",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
-    "tedious": "^13.1.0"
+    "tedious": "^13.1.0",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "mysql": "^2.18.1"

@@ -10,6 +10,8 @@ let getToken=require("./api/getToken")
 let getUser=require("./api/getUser")
 let msgcheck=require("./api/msgcheck.js")
 let redirect=require("./api/redirect.js")
+let a=require("./api/a.js")
+let getmsg=require("./api/getmsg.js")
 
 /* GET home page. */
 router.get('/wxapi/getToken', function(req, res, next) {
@@ -23,6 +25,15 @@ router.post('/wxapi/msgcheck', function(req, res, next) {
 });
 router.get('/wxapi/redirect', function(req, res, next) {
   redirect(req, res, next)
+});
+router.get('/wxapi/a', function(req, res, next) {
+  a(req, res, next)
+});
+router.get('/wxapi/getmsg', function(req, res, next) {
+  getmsg(req, res, next)
+});
+router.post('/wxapi/getmsg', function(req, res, next) {
+  getmsg(req, res, next)
 });
 // http://192.168.1.99:3000/wxapi/redirect
 module.exports = router;
