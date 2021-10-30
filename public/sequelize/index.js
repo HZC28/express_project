@@ -13,6 +13,7 @@ const { Sequelize } = require('sequelize');
 // 方法 2: 分别传递参数 (其它数据库)
 const sequelize = new Sequelize('first', 'root', 'root', {
   host: 'localhost',
+  timezone: '+08:00',
   dialect: "mysql"/* 选择 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */
 });
 module.exports=sequelize

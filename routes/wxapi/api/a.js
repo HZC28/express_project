@@ -6,26 +6,26 @@ var $sql = $mysql.createConnection(sql.mysql) //创建一个连接        mysql�
 $sql.connect()
 const crypto = require('crypto');
 var request = require('request');
-let APPID = 'wx3fdda51ff31c80b8'
-let secret = '140d7dca74627817725872e9b6eb366f'
-
+let {token_fun,ticket_fun}=require("../../../public/util/token.js")
+let APPID = 'wxb55302fba51c9a26'
+let secret = '51c44e249ff524a9a45e6d4cc8ae1510'
 // 微信分享
-
-// 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function getUser(req, res, next) {
-    let jsapi_ticket=JSON.parse(await getjsapi_ticket()).ticket
-    console.log(jsapi_ticket)
+    let jsapi_ticket=await ticket_fun()
+    // console.log(jsapi_ticket)
     let ret = {
         jsapi_ticket: jsapi_ticket,
         // 随机字符串
         nonceStr: createNonceStr(),
         // 时间戳
         timestamp: createTimestamp(),
-        url: "https://www.nandao.tech/book?code=011vV3100MfbDM1PGd100fJ3mZ0vV31A&state=STATE"
+        url: "http://ftp6487794.host117.sanfengyun.cn/wx/index"
     };
     var string = raw(ret)
     ret.signature = sha1(string)
     ret.appId = APPID;
+    ret.token = token;
+    // console.log(ret)
     res.send(ret);
 }
 module.exports = getUser
@@ -40,9 +40,11 @@ function getToken() {
 
 // 用第一步拿到的access_token 采用http GET方式请求获得jsapi_ticket
 async function getjsapi_ticket() {
-    let token =JSON.parse(await getToken()).access_token
+    token =JSON.parse(await getToken()).access_token
+    console.log(token)
     return new Promise(function (resolve, reject) {
         request(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${token}&type=jsapi`, function (error, response, body) {
+            // console.log(response.body)
             resolve(response.body)
         })
     })

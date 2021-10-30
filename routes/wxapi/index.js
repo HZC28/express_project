@@ -12,7 +12,9 @@ let msgcheck=require("./api/msgcheck.js")
 let redirect=require("./api/redirect.js")
 let a=require("./api/a.js")
 let getmsg=require("./api/getmsg.js")
-
+let pay=require("./api/pay.js")
+let menus=require("./api/menus.js")
+let query_menus=require("./api/query_menus.js")
 /* GET home page. */
 router.get('/wxapi/getToken', function(req, res, next) {
   getToken(req, res, next)
@@ -35,6 +37,16 @@ router.get('/wxapi/getmsg', function(req, res, next) {
 router.post('/wxapi/getmsg', function(req, res, next) {
   getmsg(req, res, next)
 });
+router.post('/wxapi/pay', function(req, res, next) {
+  pay(req, res, next)
+});
+router.post('/wxapi/menus', function(req, res, next) {
+  menus(req, res, next)
+});
+router.get('/wxapi/query_menus', function(req, res, next) {
+  query_menus(req, res, next)
+});
+
 // http://192.168.1.99:3000/wxapi/redirect
 module.exports = router;
 

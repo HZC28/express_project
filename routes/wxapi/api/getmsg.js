@@ -83,12 +83,12 @@ function msgHandler(msgbufer) {
  
                 resolve(builder.buildObject(data));
                 break;
-                case '1':
+                case result.Content:
                 // 返回帮助内容
-                var str ="111，就知道输入1"
+                var str ="等抓你去串墙"
                 var data = Object.assign({
                   MsgType: 'text',
-                  Content: str,
+                  Content: "https://www.nandao.tech/book",
                 }, baseData);
  
                 resolve(builder.buildObject(data));
@@ -105,8 +105,8 @@ function msgHandler(msgbufer) {
                 ArticleCount: 1,
                 Articles: {
                   item: {
-                    Title: '淘淘乐',
-                    Description: '丸子带你买，店内领取各种淘宝天猫优惠券',
+                    Title: '买个鬼手机电脑',
+                    Description: '家里建房钱不还了吗，欠我钱不还了？',
                     PicUrl: 'http://weixin.tangsj.com/dataoke/wx.jpg',
                     Url: 'http://weixin.tangsj.com/dataoke/',
                   },

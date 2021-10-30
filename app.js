@@ -59,7 +59,6 @@ let a;
 //   a= await getUser(req)
 // })
 logger.token('username',(req)=> {
-  console.log(2)
   a=getUser(req.headers.token)
   // console.log(a)
   return req.headers.token
