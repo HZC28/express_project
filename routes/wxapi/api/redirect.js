@@ -11,7 +11,8 @@ let secret='140d7dca74627817725872e9b6eb366f'
 
 // 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function redirect(req, res, next) {
-    const redirectURL = "http://ftp6487794.host117.sanfengyun.cn/wx/index";
+  console.log(456)
+    const redirectURL = "https://www.nandao.tech/book";
     const appId = "wxb55302fba51c9a26";
     const url =
       "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
@@ -19,6 +20,7 @@ async function redirect(req, res, next) {
       "&redirect_uri=" +
       encodeURIComponent(redirectURL) +
       "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-      res.redirect(url);
+    console.log(123)
+    res.redirect(url);
 }
 module.exports=redirect

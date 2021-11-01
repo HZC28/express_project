@@ -20,6 +20,7 @@ WebSite.init({
         primaryKey: true,
         unique: true
     },
+    order_no_zfb :Sequelize.STRING(255),
     order_pay_type:Sequelize.STRING(255),
     order_name: Sequelize.STRING(255),
     order_price: Sequelize.STRING(255),

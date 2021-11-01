@@ -17,28 +17,36 @@ let return_url=require("./api/return_url.js")
 let refund=require("./api/refund.js")
 let refund_query=require("./api/refund_query.js")
 let downloadurl=require("./api/downloadurl.js")
+let close_order=require("./api/close_order.js")
 /* GET home page. */
 router.get('/zfb/test', function (req, res, next) {
     test(req, res, next)
 });
+
 router.get('/zfb/h5', function (req, res, next) {
     h5(req, res, next)
 });
+
 router.get('/zfb/pc', function (req, res, next) {
     pc(req, res, next)
 });
+
 router.get('/zfb/query_h5', function (req, res, next) {
     query_h5(req, res, next)
 });
+
 router.post('/zfb/return_url', function (req, res, next) {
     return_url(req, res, next)
 });
+
 router.get('/zfb/query_pc', function (req, res, next) {
     query_pc(req, res, next)
 });
+
 router.post('/zfb/refund', function (req, res, next) {
     refund(req, res, next)
 });
+
 router.post('/zfb/refund_query', function (req, res, next) {
     refund_query(req, res, next)
 });
@@ -46,4 +54,9 @@ router.post('/zfb/refund_query', function (req, res, next) {
 router.get('/zfb/downloadurl', function (req, res, next) {
     downloadurl(req, res, next)
 });
+
+router.post('/zfb/close_order', function (req, res, next) {
+    close_order(req, res, next)
+});
+
 module.exports = router;

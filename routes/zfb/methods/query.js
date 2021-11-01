@@ -30,6 +30,7 @@ async function query(orderno) {
             let x = await Order.update({
                 order_buyer_logon_id:obj.alipay_trade_query_response.buyer_logon_id,
                 order_buyer_user_id:obj.alipay_trade_query_response.buyer_user_id,
+                order_no_zfb:obj.alipay_trade_query_response.trade_no,
                 order_state_msg:"支付成功",
                 order_state:"200"
             },{
@@ -41,6 +42,7 @@ async function query(orderno) {
             let x = await Order.update({
                 order_buyer_logon_id:obj.alipay_trade_query_response.buyer_logon_id,
                 order_buyer_user_id:obj.alipay_trade_query_response.buyer_user_id,
+                order_no_zfb:obj.alipay_trade_query_response.trade_no,
                 order_state_msg:"支付失败",
                 order_state:"100"
             },{

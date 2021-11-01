@@ -46,7 +46,6 @@ router.post('/wxapi/menus', function(req, res, next) {
 router.get('/wxapi/query_menus', function(req, res, next) {
   query_menus(req, res, next)
 });
-
 // http://192.168.1.99:3000/wxapi/redirect
 module.exports = router;
 

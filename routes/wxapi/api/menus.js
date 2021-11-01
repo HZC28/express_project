@@ -9,6 +9,32 @@ const querystring = require('querystring');
 async function menus(req, res, next) {
     let token=await token_fun()
     let obj=req.body
+    console.log(token)
+    console.log(JSON.parse(JSON.stringify(obj)))
+    let url=`https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${token}`
+    let params={
+        url:url,
+        method:"POST",
+        json: true,
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.parse(JSON.stringify(obj))
+    }
+    let result=await new Promise(function (resolve, reject) {
+        request(params, function (error, response, body) {
+            resolve(response.body)
+        })
+    })
+    res.send(result)
+}
+module.exports=menus
+
+
+
+
+
+
     // let obj={
     //     "button": [
     //         {
@@ -38,27 +64,6 @@ async function menus(req, res, next) {
     //         }
     //     ]
     //  }
-     console.log(token)
-     console.log(JSON.parse(JSON.stringify(obj)))
-    let url=`https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${token}`
-    let params={
-        url:url,
-        method:"POST",
-        json: true,
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.parse(JSON.stringify(obj))
-    }
-    let result=await new Promise(function (resolve, reject) {
-        request(params, function (error, response, body) {
-            resolve(response.body)
-        })
-    })
-    res.send(result)
-}
-module.exports=menus
-
 
 
 
