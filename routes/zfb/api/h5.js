@@ -52,7 +52,6 @@ async function trade(req, res, next) {
     //     let obj=JSON.parse(response.body)
     //     res.send(obj.alipay_trade_precreate_response)
     // })
-
 }
 function getoutTradeNo(){
     let first=""+new Date().getFullYear()  + (new Date().getMonth()+1)  + new Date().getDate()+ new Date().getHours()  + new Date().getMinutes()  + new Date().getSeconds()+""

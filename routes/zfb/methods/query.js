@@ -53,6 +53,5 @@ async function query(orderno) {
         }
         
     })
-
 }
 module.exports = query

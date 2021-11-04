@@ -23,6 +23,7 @@ WebSite.init({
     order_no_zfb :Sequelize.STRING(255),
     order_pay_type:Sequelize.STRING(255),
     order_name: Sequelize.STRING(255),
+    refund_total: Sequelize.STRING(255),
     order_price: Sequelize.STRING(255),
     order_state: Sequelize.STRING(255),
     order_state_msg: Sequelize.STRING(255),

@@ -35,5 +35,4 @@ async function test(res){
         res.send(obj)
         // res.send(obj.alipay_data_dataservice_bill_downloadurl_query_response.bill_download_url)
     })
-    
 }

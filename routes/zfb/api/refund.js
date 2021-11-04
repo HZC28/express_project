@@ -10,6 +10,7 @@ const crypto = require('crypto');
 var request = require('request');
 const  alipaySdk=require("../../../public/alipayUtil.js")
 let Refund=require("../../../public/Model/refund.js")
+let Order=require("../../../public/Model/order.js")
 // 支付宝退款接口
 // https://openapi.alipay.com/gateway.do?timestamp=2013-01-01 08:08:08&method=alipay.trade.query&app_id=24241&sign_type=RSA2&sign=ERITJKEIJKJHKKKKKKKHJEREEEEEEEEEEE&version=1.0&charset=GBK&biz_content=AlipayTradeQueryModel
 async function query_h5(req, res, next) {
@@ -43,6 +44,17 @@ async function query_h5(req, res, next) {
             await sequelize.sync();
             let x = await Refund.create(params)
             console.log(x)
+            let y=await Order.update({
+                // refund_total:sequelize.literal(`refund_total+${amount}`),
+                refund_total:obj.refund_fee
+            },
+            {
+                where:{
+                    order_no: orderno
+                }
+            }
+            )
+            // console.log(y)
         }
         res.send(obj)
     })

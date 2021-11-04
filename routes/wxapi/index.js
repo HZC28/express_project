@@ -15,6 +15,9 @@ let getmsg=require("./api/getmsg.js")
 let pay=require("./api/pay.js")
 let menus=require("./api/menus.js")
 let query_menus=require("./api/query_menus.js")
+let test=require("./api/test.js")
+let getbatchget=require("./api/getbatchget.js")
+let addgetbatchget=require("./api/addgetbatchget.js")
 /* GET home page. */
 router.get('/wxapi/getToken', function(req, res, next) {
   getToken(req, res, next)
@@ -46,6 +49,16 @@ router.post('/wxapi/menus', function(req, res, next) {
 router.get('/wxapi/query_menus', function(req, res, next) {
   query_menus(req, res, next)
 });
+router.get('/wxapi/test', function(req, res, next) {
+  test(req, res, next)
+});
+router.get('/wxapi/getbatchget', function(req, res, next) {
+  getbatchget(req, res, next)
+});
+
+router.post('/wxapi/addgetbatchget', function(req, res, next) {
+  addgetbatchget(req, res, next)
+});
+
 // http://192.168.1.99:3000/wxapi/redirect
 module.exports = router;
-
