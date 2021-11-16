@@ -46,7 +46,9 @@ async function query_h5(req, res, next) {
             console.log(x)
             let y=await Order.update({
                 // refund_total:sequelize.literal(`refund_total+${amount}`),
-                refund_total:obj.refund_fee
+                refund_total:obj.refund_fee,
+                order_state:300,
+                order_state_msg:"已退款"
             },
             {
                 where:{

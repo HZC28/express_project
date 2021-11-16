@@ -4,19 +4,21 @@ var $sql = $mysql.createConnection(sql.mysql)       //创建一个连接        
 $sql.connect() 
 var request = require('request');
 const querystring = require('querystring')
+let {token_fun,ticket_fun}=require("../../../public/util/token.js")
 
 // 检查内容是否违规
 
-let token="50_Hk_Bg-AonNGGupwf40c3ZS_rQ0kLpuFI58KeA1eyVUsge5V_ImVmMcRgaObVJOgOFJgYN-aT0FdssTYcbNvl_bSnL3ekeBhLxTjtziq6k4cpOBAv0SlKAKXMG7e5GhVMnzKsQGkivR2zeOMqDPCeAFAVHU"
+
 async function msgcheck(req, res, next) {
+    let token=await token_fun()
     let query=req.body
     let obj={
         "version":2,
-        "openid":"asdad",
+        "openid":"o3HQo64hXqxWdYFId1hOUkeQ9YDU",
         "scene":2,
-        "content":"123131"
+        "content":"1111"
     }
-    console.log(querystring.stringify(obj))
+    console.log(querystring.stringify(obj),112232)
     let params={
         url: `https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${token}`,
         method: "POST",
@@ -24,7 +26,7 @@ async function msgcheck(req, res, next) {
         headers: {
             "content-type": "application/json",
         },
-        body: obj
+        body: querystring.stringify(obj)
     }
     let result;
     if(query.type==0){

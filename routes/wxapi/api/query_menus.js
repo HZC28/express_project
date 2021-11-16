@@ -21,6 +21,3 @@ async function query_menus(req, res, next) {
 module.exports=query_menus
 
 
-
-
-

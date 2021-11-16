@@ -8,8 +8,6 @@ let xml2js = require("xml2js")
 // 公众号测试账号appid，sercket
 
 // 自动回复信息
-
-// 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function getmsg(req, res, next) {
   var buffer = [];
   req.on('data', function (data) {
@@ -74,7 +72,6 @@ function msgHandler(msgbufer) {
         FromUserName: result.ToUserName,
         CreateTime: Date.now(),
       }
-
       switch (result.MsgType) {
         case 'text':
           switch (result.Content.toLowerCase()) {
@@ -89,6 +86,14 @@ function msgHandler(msgbufer) {
                 Content: helpTxt.join('\n'),
               }, baseData);
 
+              resolve(builder.buildObject(data));
+              break;
+            case "外链1":
+              // 返回帮助内容
+              var data = Object.assign({
+                MsgType: 'text',
+                Content: "https://www.nandao.tech/book",
+              }, baseData);
               resolve(builder.buildObject(data));
               break;
             case "外链":
@@ -128,8 +133,8 @@ function msgHandler(msgbufer) {
               ArticleCount: 1,
               Articles: {
                 item: {
-                  Title: '买个鬼手机电脑',
-                  Description: '家里建房钱不还了吗，欠我钱不还了？',
+                  Title: '手机电脑',
+                  Description: '1111',
                   PicUrl: 'http://weixin.tangsj.com/dataoke/wx.jpg',
                   Url: 'http://weixin.tangsj.com/dataoke/',
                 },
@@ -143,7 +148,6 @@ function msgHandler(msgbufer) {
               MsgType: 'text',
               Content: '在下没能满足客官的需求，实在抱歉~~',
             }, baseData);
-
             resolve(builder.buildObject(data));
           } else if (result.Event === 'CLICK') {
             switch (result.EventKey) {
@@ -152,7 +156,6 @@ function msgHandler(msgbufer) {
                   MsgType: 'text',
                   Content: '点击搜索',
                 }, baseData);
-
                 resolve(builder.buildObject(data));
             }
           }

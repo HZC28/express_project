@@ -43,7 +43,7 @@ function getObj() {
         method: "POST",
         json: true,
         headers: {
-            "content-type": "application/x-www-form-urlencoded",
+            "content-type": "application/x-www-form-urlencoded"
         },
         body: querystring.stringify(params)
     }
@@ -72,13 +72,13 @@ function getTokenfun() {
  * 返回一个随机的小写字母 
  */
 function getLowerCharacter() {
-    return getCharacter("lower");;
+    return getCharacter("lower");
 }
 /** 
  * 返回一个随机的大写字母 
  */
 function getUpperCharacter() {
-    return getCharacter("upper");;
+    return getCharacter("upper");
 }
 /** 
  * 返回一个字母 

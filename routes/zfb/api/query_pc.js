@@ -28,6 +28,5 @@ async function query_h5(req, res, next) {
         let obj=JSON.parse(response.body)
         res.send(obj)
     })
-
 }
 module.exports = query_h5

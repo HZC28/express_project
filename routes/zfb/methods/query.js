@@ -27,6 +27,7 @@ async function query(orderno) {
     request(result,async function(error, response, body){
         let obj=JSON.parse(response.body)
         if(obj.alipay_trade_query_response.code=="10000"){
+            // 更新数据库信息
             let x = await Order.update({
                 order_buyer_logon_id:obj.alipay_trade_query_response.buyer_logon_id,
                 order_buyer_user_id:obj.alipay_trade_query_response.buyer_user_id,

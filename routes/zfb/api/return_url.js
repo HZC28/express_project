@@ -14,8 +14,10 @@ let APPID = '2021000118638070'
 // 50_OskH-iFb1JhD_iOLBx12cdfp2b5o7S7zskLOLn-JDStVRE4jvvY__Uj75X_OY5HYQb-yHFXwkSvKJQKKT0Bc4Eqq8SDPqwtBbClae7EaUVRSxtJG6lrlMXMMctyrjapt3-WxFypF-G3jYnklGZEjACAJCH
 async function trade(req, res, next) {
     console.log("return_url触发")
-    console.log(req.body.out_trade_no)
-    query(req.body.out_trade_no)
+    // console.log(req.body)
+    if(!req.body.refund_fee){
+        query(req.body.out_trade_no)
+    }
     res.send("return_url")
 }
 module.exports = trade

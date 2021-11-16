@@ -15,7 +15,7 @@ async function trade(req, res, next) {
     const formData = new AlipayFormData();
     let orderno=getoutTradeNo()
     let order_name='商品'
-    let order_price="1"
+    let order_price="100"
     let order_detail="商品描述"
     formData.setMethod('get');
     formData.addField('bizContent', {
@@ -56,5 +56,3 @@ function getoutTradeNo(){
     return id
 }
 module.exports = trade
-
-
